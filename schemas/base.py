@@ -1,19 +1,20 @@
-from decouple import config
-from marshmallow import Schema, fields, validate
-
-from utils.general_validators import validate_password
+from marshmallow import Schema, fields, validate, validates, ValidationError
+from password_policy import policy
 
 
-class AuthBase(Schema):
-
+class BaseRegisterRequestSchema(Schema):
     email = fields.Email(required=True)
-    password = fields.Str(
-        required=True,
-        validate=validate.And(
-            validate.Length(
-                min=6,
-                max=255,
-            ),
-            validate_password,
-        ),
-    )
+    password = fields.String(required=True, validate=validate.Length(min=6, max=255))
+
+    @validates("password")
+    def validate_password(self, value):
+        errors = policy.test(value)
+        if errors:
+            raise ValidationError(
+                f"The password does not meet the requirements: {errors}"
+            )
+
+
+class BaseLogInRequestSchema(Schema):
+    email = fields.Email(required=True)
+    password = fields.String(required=True, validate=validate.Length(min=6, max=255))

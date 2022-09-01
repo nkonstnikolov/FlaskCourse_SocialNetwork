@@ -29,3 +29,17 @@ class LoginResource(Resource):
         token = UserManager.login(data)
         
         return {"token:": token}, 200
+        
+class LogoutResource(Resource):
+    def post(self):
+        user_id = request.get_json()
+        UserManager.logout(user_id)
+        
+        return {"message": "Successfully logged out."}, 200
+
+class DeleteAccountResource(Resource):
+    def delete(self):
+        data = request.get_json()
+        UserManager.delete_account(data)
+        
+        return {"message": "Successfully deleted account."}, 200

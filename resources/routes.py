@@ -5,6 +5,8 @@ from resources.message import *
 routes = (
     (RegisterResource, "/register"),
     (LoginResource, "/login"),
+    (LogoutResource, "/logout"),
+    (DeleteAccountResource, "/delete"),
     (ProfileResource, "/profile"),
     (ProfileSearchResource, "/profile"),
     (SendMessageResource, "/message"),

@@ -17,6 +17,7 @@ class UserManager:
         
         return AuthManager.encode_token(user)
         
+        
     @staticmethod
     def login(login_data):
 
@@ -26,3 +27,20 @@ class UserManager:
         if check_password_hash(user.password, login_data["password"]):
             return AuthManager.encode_token(user)
         raise BadRequest("Incorrect password")
+       
+       
+    @staticmethod  
+    def delete_account(self, user_id):
+    
+        user = UserModel.query.get(user_id)
+        if not user:
+            raise BadRequest("User does not exist")
+
+        db.session.delete(user)
+        db.session.commit()
+     
+     
+     @staticmethod
+     def logout(self, user_id):
+
+        return AuthManager.invalidate_token(user_id)

@@ -31,6 +31,23 @@ class AuthManager:
 
         except InvalidTokenError:
             raise Unauthorized('Invalid token')
+        
+     
+    @staticmethod
+    def invalidate_token(token):
+        if not token:
+            raise Unauthorized('You need a token for access to this resource')
+
+        try:
+            payload = jwt.decode(token, key=config('SECRET_KEY'), algorithms=["HS256"])
+            user_id = payload['sub']
+            user = UserModel.query.get(user_id)
+            user.token = None
+            db.session.commit()
+            return True
+
+        except InvalidTokenError:
+            raise Unauthorized('Invalid token')
 
 
 @auth.verify_token

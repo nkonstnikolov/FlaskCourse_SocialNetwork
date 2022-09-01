@@ -17,3 +17,11 @@ class RegisterResource(Resource):
         token = UserManager.register(data)
 
         return {"token":  token}, 201
+        
+class LoginResource(Resource):
+
+    def post(self):
+        data = request.get_json()
+        token = UserManager.login(data)
+        
+        return {"token:": token}, 200

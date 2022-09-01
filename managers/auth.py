@@ -16,7 +16,7 @@ class AuthManager:
     def encode_token(user):
         payload = {'exp': datetime.utcnow() + timedelta(days=1),
                    'sub': user.user_id}
-        return jwt.encode(payload, key=config('SECRET_KEY'), algorithms=["HS256"])
+        return jwt.encode(payload, key=config('SECRET_KEY'), algorithm="HS256")
 
     @staticmethod
     def decode_token(token):

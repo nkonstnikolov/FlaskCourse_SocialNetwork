@@ -4,7 +4,6 @@ from models.enums import UserRole
 
 
 class UserModel(db.Model):
-    """ User Model for storing user related details """
     __tablename__ = "user"
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -15,3 +14,4 @@ class UserModel(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     created_datetime = db.Column(db.DateTime, server_default=func.now())
     user_role = db.Column(db.Enum(UserRole), nullable=False)
+   

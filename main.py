@@ -5,14 +5,15 @@ from models.user import UserModel
 
 app = create_app()
 
+@app.before_first_request
+def create_tables():
+    db.init_app(app)
+    db.create_all()
 
 @app.after_request
 def close_request(response):
     db.session.commit()
     return response
-
-with app.app_context():
-    db.create_all()
 
 if __name__ == "__main__":
     app.run(debug=True)

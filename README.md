@@ -36,5 +36,17 @@ DB_NAME=
 SECRET_KEY=
 ````
 
+## Endpoints
+
+The endpoints are as follows:
+
+* /register: For account creation
+* /login: For logging in
+* /logout: For token invalidation and logging out
+* /delete: For account deletion
+* /profile: For profile creation and profile searching
+* /message: For sending a message
+* /inbox: For your inbox
+
 ## Developed by
 `nkonstnikolov@gmail.com` - Nikolay Nikolov

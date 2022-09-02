@@ -32,14 +32,15 @@ class LoginResource(Resource):
         
 class LogoutResource(Resource):
     def post(self):
-        user_id = request.get_json()
-        UserManager.logout(user_id)
+        user_id = request.get_json()["user_id"]
+        token = request.get_json()["token"]
+        UserManager.logout(self, token)
         
         return {"message": "Successfully logged out."}, 200
 
 class DeleteAccountResource(Resource):
     def delete(self):
-        data = request.get_json()
-        UserManager.delete_account(data)
+        user_id = request.get_json()["user_id"]
+        UserManager.delete_account(self, user_id)
         
         return {"message": "Successfully deleted account."}, 200

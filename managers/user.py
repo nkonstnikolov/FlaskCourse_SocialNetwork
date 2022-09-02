@@ -14,7 +14,7 @@ class UserManager:
         user = UserModel(**user_data)
         db.session.add(user)
         db.session.commit()
-        
+
         return AuthManager.encode_token(user)
         
         
@@ -29,9 +29,9 @@ class UserManager:
         raise BadRequest("Incorrect password")
        
        
-    @staticmethod  
+    @staticmethod
     def delete_account(self, user_id):
-    
+
         user = UserModel.query.get(user_id)
         if not user:
             raise BadRequest("User does not exist")
@@ -40,7 +40,7 @@ class UserManager:
         db.session.commit()
      
      
-     @staticmethod
-     def logout(self, user_id):
-
-        return AuthManager.invalidate_token(user_id)
+    @staticmethod
+    def logout(self, token):
+        
+        return AuthManager.invalidate_token(token)

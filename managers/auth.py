@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import jwt
+from db import db
 from decouple import config
 from flask_httpauth import HTTPTokenAuth
 from jwt import ExpiredSignatureError, InvalidTokenError
@@ -14,8 +15,11 @@ class AuthManager:
 
     @staticmethod
     def encode_token(user):
-        payload = {'exp': datetime.utcnow() + timedelta(days=1),
-                   'sub': user.user_id}
+        payload = {
+            "sub": user.user_id,
+            "iat": datetime.utcnow(),
+            "exp": datetime.utcnow() + timedelta(seconds=3600),
+        }       
         return jwt.encode(payload, key=config('SECRET_KEY'), algorithm="HS256")
 
     @staticmethod

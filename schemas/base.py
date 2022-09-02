@@ -16,5 +16,5 @@ class BaseRegisterRequestSchema(Schema):
 
 
 class BaseLogInRequestSchema(Schema):
-    email = fields.Email(required=True)
+    username = fields.String(required=True)
     password = fields.String(required=True, validate=validate.Length(min=6, max=255))

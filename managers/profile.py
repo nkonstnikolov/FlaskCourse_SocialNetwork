@@ -18,6 +18,29 @@ class ProfileManager:
 
         return profile
 
+
+    @staticmethod
+    def edit_profile(data):
+        user = UserModel.query.filter_by(user_id=UserModel.user_id).first()
+        if not user:
+            raise BadRequest("User does not exist")
+
+        profile = ProfileModel(**data)
+        
+        if data.get("age"):
+            profile.age = data["age"]
+        if data.get("location"):
+            profile.location = data["location"]
+        if data.get("sex"):
+            profile.sex = data["sex"]
+        if data.get("school"):
+            profile.school = data["school"]
+    
+        db.session.commit()
+
+        return profile
+
+
     @staticmethod
     def search_profiles(data):
         profiles = ProfileModel.query

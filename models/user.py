@@ -12,6 +12,7 @@ class UserModel(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
+    phone = db.Column(db.String(14), nullable=False)
     created_datetime = db.Column(db.DateTime, server_default=func.now())
     user_role = db.Column(db.Enum(UserRole), nullable=False)
    

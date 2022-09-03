@@ -3,12 +3,13 @@ from resources.profile import *
 from resources.message import *
 
 routes = (
-    (RegisterResource, "/register"),
-    (LoginResource, "/login"),
-    (LogoutResource, "/logout"),
-    (DeleteAccountResource, "/delete"),
-    (ProfileResource, "/profile"),
-    (ProfileSearchResource, "/profile"),
-    (SendMessageResource, "/message"),
-    (InboxResource, "/inbox"),
+    (RegisterResource, "/register"), #POST
+    (LoginResource, "/login"), #POST
+    (LogoutResource, "/logout"), #POST
+    (DeleteAccountResource, "/delete"), #DELETE
+    (ProfileResource, "/profile"), #POST
+    (ProfileSearchResource, "/profile"), #GET
+    (ProfileEditResource, "/profile"), #PUT
+    (SendMessageResource, "/message"), #POST
+    (InboxResource, "/inbox"), #GET
 )

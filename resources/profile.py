@@ -31,3 +31,14 @@ class ProfileSearchResource(Resource):
         profiles = ProfileManager.search_profiles(data)
         
         return {"profiles": [profile.serialize() for profile in profiles]}, 200
+        
+
+class ProfileEditResource(Resource):
+
+    @auth.login_required
+    def put(self):
+        data = request.get_json()
+        user_id = data["user_id"]
+        profile = ProfileManager.edit_profile(data)
+
+        return {"message": "Profile successfully edited"}, 201

@@ -4,6 +4,13 @@ from db import db
 from managers.auth import AuthManager
 from models.user import UserModel
 from models.enums import UserRole
+from decouple import config
+from twilio.rest import Client
+
+#Twilio credentials
+account_sid = config('TWILIO_ACCOUNT_SID')
+auth_token = config('TWILIO_AUTH_TOKEN')
+client = Client(account_sid, auth_token)
 
 class UserManager:
 
@@ -14,7 +21,13 @@ class UserManager:
         user = UserModel(**user_data)
         db.session.add(user)
         db.session.commit()
-
+        
+        message = client.messages.create(
+         body='Welcome to the Social Network!',
+         from_ = config('TWILIO_FROM'),
+         to = user_data['phone']
+         )
+        
         return AuthManager.encode_token(user)
         
         
